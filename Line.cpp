@@ -28,7 +28,7 @@ void Line::calculateLine(){
     a = this->m_secondPoint.y-this->m_firstPoint.y;
     divider = this->m_secondPoint.x - this->m_firstPoint.x;
     //c = a*this->m_secondPoint.x+divider*m_secondPoint.y;
-    float div1 = m_secondPoint.y-m_firstPoint.y;
+    float div1 = abs(m_secondPoint.y-m_firstPoint.y);
     float div2 = m_secondPoint.x-m_firstPoint.x;
     float tangant = div1/div2;
     incline = atan(tangant);

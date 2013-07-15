@@ -18,8 +18,11 @@ Layer::Layer()
 	CCPoint p1 = ccp(200,0);
     CCPoint p2 = ccp(320,60);
     Line *ln = new Line(p1,p2);
+    Line *ln2 = new Line(ccp(320,60),ccp(500,60));
+    Line *ln3 = new Line(ccp(500,60),ccp(800,20));
     lineList->push_front(ln);
-    
+    lineList->push_front(ln2);
+    lineList->push_front(ln3);
     box=new Sprite(20, 32, 32, 32);
     
     // create sprite
