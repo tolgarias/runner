@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Screens>
+<totalScreenCount>1</totalScreenCount>
+	<Screen>
+		<points>
+			<point>
+				<startx>0</startx>
+				<endx>6</endx>
+				<starty>0.25</starty>
+				<endy>0.25</endy>
+			</point>
+		</points>
+	</Screen>
+</Screens>

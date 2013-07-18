@@ -183,6 +183,12 @@
 		9C030A721790224400932950 /* Line.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C030A701790224400932950 /* Line.cpp */; };
 		9C030A741790338F00932950 /* wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C030A731790338F00932950 /* wall.png */; };
 		9C030A77179033E200932950 /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C030A75179033E200932950 /* Sprite.cpp */; };
+		9C9301AF1796D39600F76580 /* ScreenManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C9301AD1796D39600F76580 /* ScreenManager.cpp */; };
+		9C93026D1796DF4000F76580 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C93026B1796DF3F00F76580 /* Screen.cpp */; };
+		9C93026F1796E8D200F76580 /* screens.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9C93026E1796E8D200F76580 /* screens.xml */; };
+		9C9302731797C1CC00F76580 /* pugiconfig.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C9302701796E9E400F76580 /* pugiconfig.hpp */; };
+		9C9302741797C1CC00F76580 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C9302711796E9E400F76580 /* pugixml.cpp */; };
+		9C9302751797C1CC00F76580 /* pugixml.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C9302721796E9E400F76580 /* pugixml.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -572,6 +578,14 @@
 		9C030A731790338F00932950 /* wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall.png; sourceTree = "<group>"; };
 		9C030A75179033E200932950 /* Sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sprite.cpp; sourceTree = "<group>"; };
 		9C030A76179033E200932950 /* Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sprite.h; sourceTree = "<group>"; };
+		9C9301AD1796D39600F76580 /* ScreenManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenManager.cpp; sourceTree = "<group>"; };
+		9C9301AE1796D39600F76580 /* ScreenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenManager.h; sourceTree = "<group>"; };
+		9C93026B1796DF3F00F76580 /* Screen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
+		9C93026C1796DF3F00F76580 /* Screen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Screen.h; sourceTree = "<group>"; };
+		9C93026E1796E8D200F76580 /* screens.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = screens.xml; sourceTree = "<group>"; };
+		9C9302701796E9E400F76580 /* pugiconfig.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = pugiconfig.hpp; sourceTree = "<group>"; };
+		9C9302711796E9E400F76580 /* pugixml.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pugixml.cpp; sourceTree = "<group>"; };
+		9C9302721796E9E400F76580 /* pugixml.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = pugixml.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1275,6 +1289,12 @@
 		41DA4F50145F08C2009CE11D = {
 			isa = PBXGroup;
 			children = (
+				9C9302701796E9E400F76580 /* pugiconfig.hpp */,
+				9C9302711796E9E400F76580 /* pugixml.cpp */,
+				9C9302721796E9E400F76580 /* pugixml.hpp */,
+				9C93026E1796E8D200F76580 /* screens.xml */,
+				9C93026B1796DF3F00F76580 /* Screen.cpp */,
+				9C93026C1796DF3F00F76580 /* Screen.h */,
 				9C030A75179033E200932950 /* Sprite.cpp */,
 				9C030A76179033E200932950 /* Sprite.h */,
 				9C030A731790338F00932950 /* wall.png */,
@@ -1283,6 +1303,8 @@
 				41DA52B9145F1DAC009CE11D /* SpriteDragger.h */,
 				41DA52BA145F1DAC009CE11D /* SpriteDragger.cpp */,
 				415E65DE15DC106A00B30E1A /* Layer.h */,
+				9C9301AD1796D39600F76580 /* ScreenManager.cpp */,
+				9C9301AE1796D39600F76580 /* ScreenManager.h */,
 				415E65DF15DC106A00B30E1A /* Layer.cpp */,
 				41DA52B6145F1DAC009CE11D /* App.h */,
 				41DA52B7145F1DAC009CE11D /* App.mm */,
@@ -1387,6 +1409,7 @@
 				416F6C2215DD764100977938 /* fps_images-ipadhd.png in Resources */,
 				416F6C2315DD764100977938 /* fps_images.png in Resources */,
 				9C030A741790338F00932950 /* wall.png in Resources */,
+				9C93026F1796E8D200F76580 /* screens.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1397,6 +1420,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C9302731797C1CC00F76580 /* pugiconfig.hpp in Sources */,
+				9C9302741797C1CC00F76580 /* pugixml.cpp in Sources */,
+				9C9302751797C1CC00F76580 /* pugixml.hpp in Sources */,
 				41DA52BB145F1DAC009CE11D /* App.mm in Sources */,
 				41DA52BC145F1DAC009CE11D /* main.m in Sources */,
 				41DA52BD145F1DAC009CE11D /* SpriteDragger.cpp in Sources */,
@@ -1561,6 +1587,8 @@
 				415E65E015DC106A00B30E1A /* Layer.cpp in Sources */,
 				9C030A721790224400932950 /* Line.cpp in Sources */,
 				9C030A77179033E200932950 /* Sprite.cpp in Sources */,
+				9C9301AF1796D39600F76580 /* ScreenManager.cpp in Sources */,
+				9C93026D1796DF4000F76580 /* Screen.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

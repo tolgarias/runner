@@ -36,9 +36,7 @@ void Line::calculateLine(){
     if(direction==1){
         incline *=-1;
     }
-    //std::cout << "\n";
-    //std::cout << incline;
-    //std::cout << "\n";
+ 
 }
 float Line::findY(float x) {
     float div1 = a*x - a*m_secondPoint.x;
@@ -55,4 +53,43 @@ cocos2d::CCPoint Line::getFirstPoint() {
 
 cocos2d::CCPoint Line::getSecondPoint() {
     return m_secondPoint;
+}
+
+float Line::getMaxY() {
+    if(direction==1){
+        return m_secondPoint.y;
+    }
+    else {
+        return m_firstPoint.y;
+    }
+}
+
+float Line::getMinY() {
+    if(direction==2){
+        return m_secondPoint.y;
+    }
+    else {
+        return m_firstPoint.y;
+    }
+}
+
+bool Line::checkCollission(int x,int y,int width,int height){
+    bool result = false;
+    if (x+width>m_firstPoint.x && x<m_secondPoint.x) {
+        int lineY = findY(x+width);
+        if (y-height<lineY) {
+            if(direction==1){
+                if(y>getMinY() && y-height<=getMaxY()){
+                    result = true;
+                }
+            }
+            else {
+                if(y-height<=getMaxY() && y>=getMinY()){
+                    result = true;
+                }
+            }
+            //result = true;
+        }
+    }
+    return result;
 }

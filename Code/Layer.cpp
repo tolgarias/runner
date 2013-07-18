@@ -3,7 +3,9 @@
 #include "CCDrawingPrimitives.h"
 //#include "GLES/gl.h"
 #include "cocos2d.h"
-//#include "Line.h"
+#include "ScreenManager.h"
+const int TOP_PADDING=90;
+const int LEFT_PADDING = 40;
 Layer::Layer()
 {
 	// enable touches so we can drag
@@ -15,18 +17,28 @@ Layer::Layer()
 	//this->colorLayer->initWithColor( ccc4(255, 255, 255, 255) );
 	this->addChild(this->colorLayer, 1);
     lineList = new std::list<Line*>();
-	CCPoint p1 = ccp(200,0);
-    CCPoint p2 = ccp(320,60);
+	CCPoint p1 = ccp(70,0);
+    CCPoint p2 = ccp(320,40);
     Line *ln = new Line(p1,p2);
-    Line *ln2 = new Line(ccp(320,60),ccp(500,60));
+    Line *ln2 = new Line(ccp(320,40),ccp(500,40));
     Line *ln3 = new Line(ccp(500,60),ccp(800,20));
+    Line *ln4 = new Line(ccp(220,100),ccp(550,100));
+    Line *ln5 = new Line(ccp(220,140),ccp(550,140));
+    Line *ln6 = new Line(ccp(220,200),ccp(2050,200));
+     Line *ln7 = new Line(ccp(220,270),ccp(2050,270));
     lineList->push_front(ln);
     lineList->push_front(ln2);
     lineList->push_front(ln3);
-    box=new Sprite(20, 32, 32, 32);
+    lineList->push_front(ln4);
+    lineList->push_front(ln5);
+    lineList->push_front(ln6);
+    lineList->push_front(ln7);
+    
+    box=new Sprite(LEFT_PADDING, 72, 32, 32);
     
     // create sprite
 	CCSize iSize = CCDirector::sharedDirector()->getWinSize();
+    
 	this->sprite = new CCSprite;
 	this->sprite->initWithFile("wall.png");
 	this->sprite->setAnchorPoint(ccp(0.5f, 0.5f)); // nudge the anchor point upward because of the shadow
@@ -38,38 +50,44 @@ Layer::Layer()
     this->schedule(schedule_selector(Layer::tick), 1.0f/60.0f);
     
     xBuffer = 0;
+    yBuffer = 0;
+    maxYForSprite = iSize.width - TOP_PADDING;
     speed = 2;
+    
+    ScreenManager::getInstance().load(iSize.height,iSize.width);
+    
+
 }
 CCPoint Layer::ccpForScreen(float x, float y){
     return CCDirector::sharedDirector()->convertToGL(ccp(x,y));
 }
 void Layer::tick(float dt){
-    int x=0;
-    xBuffer+=2;
-    box->setX(box->getX()+speed);
+    move();
     controlCollission();
-    //this->draw();
-    //this->sprite->runAction(CCRotateBy::actionWithDuration(0.1f, line
-      ///                                                     -))
+    setPositions();
 }
 void Layer::controlCollission() {
+    
+    
     int boxX = box->getX();
     int boxY = box->getY();
     int boxWidth = box->getWidth();
     int boxHeight = box->getHeight();
-    for (std::list<Line*>::iterator it = lineList->begin(); it != lineList->end(); it++){
-        Line* line = dynamic_cast<Line*>(*it);
-        if (boxX+boxWidth>line->getFirstPoint().x && boxX<line->getSecondPoint().x) {
+    
+    if(box->getStatus()==0){
+        for (std::list<Line*>::iterator it = lineList->begin(); it != lineList->end(); it++){
+            Line* line = dynamic_cast<Line*>(*it);
             int lineY = line->findY(boxX+boxWidth);
-            if (boxY-boxHeight<lineY) {
-                sprite->setPosition(ccpForScreen(lineY+boxHeight/2,20+box->getWidth()/2));
-                //float angleOffset = CC_DEGREES_TO_RADIANS(180);
-            
-                this->sprite->setRotation(line->getIncline());
-                //this->sprite->setRotation(-26.5);
+            if(line->checkCollission(box->getX(),box->getY(),box->getWidth(),box->getHeight())){
+                box->setCollided(true);
+                box->setRotation(line->getIncline());
+                box->setY(lineY+boxHeight);
+                return;
             }
         }
     }
+    box->setCollided(false);
+    
     
 }
 Layer::~Layer()
@@ -122,10 +140,11 @@ void Layer::ccTouchesBegan(CCSet* touches, CCEvent* event)
 		}
         //CCPoint touchPoint = touchToPoint(touch);
         CCPoint touchPoint = touch->locationInView();
-        std::cout << touchPoint.x;
-        std::cout << "\n";
-        std::cout << touchPoint.y;
-        std::cout << "\n";
+        //std::cout << touchPoint.x;
+        //std::cout << "\n";
+        //std::cout << touchPoint.y;
+        //std::cout << "\n";
+        box->setStatus(1);
 	}
    
 }
@@ -162,7 +181,9 @@ void Layer::ccTouchesEnded(CCSet* touches, CCEvent* event)
 				nullptr
 				));
 		}*/
-        this->sprite->cocos2d::CCNode::setPosition(CCDirector::sharedDirector()->convertToGL(ccp(touch->locationInView().x, touch->locationInView().y)));
+        //this->sprite->cocos2d::CCNode::setPosition(CCDirector::sharedDirector()->convertToGL(ccp(touch->locationInView().x, touch->locationInView().y)));
+        box->setStatus(0);
+        
 	}
 }
 void Layer::drawLine(CCPoint p1, CCPoint p2){
@@ -174,8 +195,47 @@ void Layer::drawLine(CCPoint p1, CCPoint p2){
 void Layer::drawLines() {
     for (std::list<Line*>::iterator it = lineList->begin(); it != lineList->end(); it++){
         Line* ll = dynamic_cast<Line*>(*it);
-        CCPoint p1 = ccp(ll->getFirstPoint().y,ll->getFirstPoint().x-xBuffer);
-        CCPoint p2 = ccp(ll->getSecondPoint().y,ll->getSecondPoint().x-xBuffer);
+        CCPoint p1 = ccp(ll->getFirstPoint().y-yBuffer,ll->getFirstPoint().x-xBuffer);
+        CCPoint p2 = ccp(ll->getSecondPoint().y-yBuffer,ll->getSecondPoint().x-xBuffer);
         drawLine(p1, p2);
+    }
+}
+
+void Layer::move() {
+    xBuffer+=speed;
+    box->setX(box->getX()+speed);
+    if (box->getStatus()==0) {
+        if(yBuffer>0){
+            yBuffer-=box->getJumpSpeed();
+            if(yBuffer<0)yBuffer=0;
+        }
+        else {
+            box->setY(box->getY()-speed);
+        }
+        
+    }
+    else if (box->getStatus()==1) {
+        box->setY(box->getY()+box->getJumpSpeed());
+        box->setJumpLength(box->getJumpLength()+box->getJumpSpeed());
+        if(box->getJumpLength()>box->getMaxJump()){
+            box->setY(box->getY()-speed);
+            box->setStatus(0);
+            box->setJumpLength(0);
+        }
+        else if (box->getY()>maxYForSprite){
+            yBuffer+=box->getJumpSpeed();
+            box->setY(box->getY()-speed);
+        }
+    }
+    
+}
+
+void Layer::setPositions() {
+    this->sprite->setPosition(ccpForScreen(box->getY()-box->getHeight()/2,LEFT_PADDING+box->getWidth()/2));
+    if(box->getCollided()){
+        this->sprite->setRotation(box->getRotation());
+    }
+    else {
+        this->sprite->setRotation(180);
     }
 }

@@ -15,7 +15,9 @@
 
 class Sprite {
 private:
-    int x,y,size,width,height;
+    int x,y,size,width,height,status,maxJump,jumpSpeed,speed,jumpLength;
+    bool collided;
+    float rotation;
     
 public:
     Sprite();
@@ -30,4 +32,19 @@ public:
     void setHeight(int value);
     int getHeight();
     
+    void setStatus(int value);
+    int getStatus();
+
+    void setCollided(bool value);
+    bool getCollided();
+    
+    void setRotation(float value);
+    float getRotation();
+    
+    int getJumpSpeed();
+    
+    void setJumpLength(int value);
+    int  getJumpLength();
+    
+    int getMaxJump();
 };

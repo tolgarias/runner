@@ -22,6 +22,8 @@ class Layer : public CCLayer
         int xBuffer;
         std::list<Line*> *lineList;
         int speed;
+        int yBuffer;
+        int maxYForSprite;
         //CCPoint p1,p2;
 	public:
 		Layer();
@@ -44,4 +46,6 @@ class Layer : public CCLayer
         void controlCollission();
         CCPoint ccpForScreen(float x,float y);
         void drawLines();
+        void move();
+        void setPositions();
 };

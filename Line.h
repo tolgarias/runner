@@ -11,9 +11,11 @@
 
 #include <iostream>
 #include "cocos2d.h"
+
 #endif /* defined(__SpriteDragger__Line__) */
 
 
+//#include "Sprite.h"
 
 class Line {
     private:
@@ -40,5 +42,8 @@ class Line {
     float findY(float x);
     cocos2d::CCPoint getFirstPoint();
     cocos2d::CCPoint getSecondPoint();
-    
+    float getMinY();
+    float getMaxY();
+    bool checkCollission(int x,int y,int width,int height);
+
 };
