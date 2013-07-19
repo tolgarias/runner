@@ -1,14 +1,119 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Screens>
-<totalScreenCount>1</totalScreenCount>
 	<Screen>
 		<points>
 			<point>
 				<startx>0</startx>
-				<endx>6</endx>
-				<starty>0.25</starty>
-				<endy>0.25</endy>
+				<endx>8</endx>
+				<starty>0.5</starty>
+				<endy>0.5</endy>
 			</point>
 		</points>
 	</Screen>
+    <Screen>
+		<points>
+			<point>
+				<startx>0</startx>
+				<endx>8</endx>
+				<starty>0.5</starty>
+				<endy>0.5</endy>
+			</point>
+            <point>
+				<startx>2</startx>
+				<endx>5</endx>
+				<starty>1.5</starty>
+				<endy>1.5</endy>
+			</point>
+		</points>
+         </Screen>
+        <Screen>
+            <points>
+                <point>
+                    <startx>0</startx>
+                    <endx>8</endx>
+                    <starty>0.5</starty>
+                    <endy>0.5</endy>
+                </point>
+                <point>
+                    <startx>1</startx>
+                    <endx>6</endx>
+                    <starty>1.5</starty>
+                    <endy>2.5</endy>
+                </point>
+                <point>
+                    <startx>2</startx>
+                    <endx>5</endx>
+                    <starty>3</starty>
+                    <endy>3</endy>
+                </point>
+                <point>
+                    <startx>3</startx>
+                    <endx>7</endx>
+                    <starty>3.75</starty>
+                    <endy>3.75</endy>
+                </point>
+            </points>
+        </Screen>
+        <Screen>
+            <points>
+                <point>
+                    <startx>0</startx>
+                    <endx>8</endx>
+                    <starty>0.5</starty>
+                    <endy>0.5</endy>
+                </point>
+                <point>
+                    <startx>4</startx>
+                    <endx>7</endx>
+                    <starty>2.5</starty>
+                    <endy>2.5</endy>
+                </point>
+                <point>
+                    <startx>4</startx>
+                    <endx>7</endx>
+                    <starty>1.5</starty>
+                    <endy>1</endy>
+                </point>
+                <point>
+                    <startx>7</startx>
+                    <endx>8</endx>
+                    <starty>1</starty>
+                    <endy>1</endy>
+                </point>
+            </points>
+        </Screen>
+    <Screen>
+        <points>
+            <point>
+                <startx>0</startx>
+                <endx>8</endx>
+                <starty>0.5</starty>
+                <endy>0.5</endy>
+            </point>
+            <point>
+                <startx>1</startx>
+                <endx>6</endx>
+                <starty>1.5</starty>
+                <endy>1.5</endy>
+            </point>
+            <point>
+                <startx>1</startx>
+                <endx>5</endx>
+                <starty>2.5</starty>
+                <endy>3.5</endy>
+            </point>
+            <point>
+                <startx>5</startx>
+                <endx>6</endx>
+                <starty>3.5</starty>
+                <endy>3.5</endy>
+            </point>
+            <point>
+                <startx>6</startx>
+                <endx>8</endx>
+                <starty>3.5</starty>
+                <endy>5.5</endy>
+            </point>
+        </points>
+    </Screen>
 </Screens>
