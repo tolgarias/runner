@@ -47,12 +47,19 @@ void ScreenManager::load(int width, int height){
         Screen *s = new Screen();
         for (pugi::xml_node point: points.children())
         {
+<<<<<<< HEAD
             bool isFloor = point.attribute("floor")==nullptr?false:true;
+=======
+>>>>>>> 20e450736b25c204f2aad87a1670937712016dc4
             float x1 = atof(point.child("startx").child_value());
             float y1 = atof(point.child("starty").child_value());
             float x2 = atof(point.child("endx").child_value());
             float y2 = atof(point.child("endy").child_value());
+<<<<<<< HEAD
             s->addPoints(x1, y1, x2, y2,isFloor);
+=======
+            s->addPoints(x1, y1, x2, y2);
+>>>>>>> 20e450736b25c204f2aad87a1670937712016dc4
         }
         m_screens[screenCounter] = s;
         screenCounter++;
