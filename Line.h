@@ -12,7 +12,7 @@
 #include <iostream>
 #include "cocos2d.h"
 
-#endif /* defined(__SpriteDragger__Line__) */
+
 
 
 //#include "Sprite.h"
@@ -47,3 +47,5 @@ class Line {
     bool checkCollission(int x,int y,int width,int height);
 
 };
+
+#endif /* defined(__SpriteDragger__Line__) */

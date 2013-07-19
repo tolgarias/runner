@@ -4,7 +4,7 @@
 #include "SpriteDragger.h"
 #include "cocos2d.h"
 #include "Sprite.h"
-#include "Line.h"
+#include "ScreenManager.h"
 
 class Layer : public CCLayer
 {
@@ -24,6 +24,8 @@ class Layer : public CCLayer
         int speed;
         int yBuffer;
         int maxYForSprite;
+        int screenController;
+        int width,height;
         //CCPoint p1,p2;
 	public:
 		Layer();
@@ -48,4 +50,5 @@ class Layer : public CCLayer
         void drawLines();
         void move();
         void setPositions();
+        void addScreen(int screenIndex);
 };

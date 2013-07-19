@@ -75,9 +75,11 @@ float Line::getMinY() {
 
 bool Line::checkCollission(int x,int y,int width,int height){
     bool result = false;
+    
     if (x+width>m_firstPoint.x && x<m_secondPoint.x) {
         int lineY = findY(x+width);
-        if (y-height<lineY) {
+        int lineY2 = findY(x);
+        if (y-height<=lineY && y>=lineY) {
             if(direction==1){
                 if(y>getMinY() && y-height<=getMaxY()){
                     result = true;

@@ -7,8 +7,8 @@
 //
 
 #include "Sprite.h"
-const int MAX_JUMP = 60;
-const int JUMP_SPEED = 2;
+const int MAX_JUMP = 90;
+const int JUMP_SPEED = 3;
 Sprite::Sprite() {
     x=0;
     y=0;

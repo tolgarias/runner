@@ -4,8 +4,10 @@
 //#include "GLES/gl.h"
 #include "cocos2d.h"
 #include "ScreenManager.h"
-const int TOP_PADDING=90;
-const int LEFT_PADDING = 40;
+#include "stdlib.h"
+
+const int TOP_PADDING=120;
+const int LEFT_PADDING = 60;
 Layer::Layer()
 {
 	// enable touches so we can drag
@@ -17,28 +19,13 @@ Layer::Layer()
 	//this->colorLayer->initWithColor( ccc4(255, 255, 255, 255) );
 	this->addChild(this->colorLayer, 1);
     lineList = new std::list<Line*>();
-	CCPoint p1 = ccp(70,0);
-    CCPoint p2 = ccp(320,40);
-    Line *ln = new Line(p1,p2);
-    Line *ln2 = new Line(ccp(320,40),ccp(500,40));
-    Line *ln3 = new Line(ccp(500,60),ccp(800,20));
-    Line *ln4 = new Line(ccp(220,100),ccp(550,100));
-    Line *ln5 = new Line(ccp(220,140),ccp(550,140));
-    Line *ln6 = new Line(ccp(220,200),ccp(2050,200));
-     Line *ln7 = new Line(ccp(220,270),ccp(2050,270));
-    lineList->push_front(ln);
-    lineList->push_front(ln2);
-    lineList->push_front(ln3);
-    lineList->push_front(ln4);
-    lineList->push_front(ln5);
-    lineList->push_front(ln6);
-    lineList->push_front(ln7);
     
     box=new Sprite(LEFT_PADDING, 72, 32, 32);
     
     // create sprite
 	CCSize iSize = CCDirector::sharedDirector()->getWinSize();
-    
+    width = iSize.height;
+    height = iSize.width;
 	this->sprite = new CCSprite;
 	this->sprite->initWithFile("wall.png");
 	this->sprite->setAnchorPoint(ccp(0.5f, 0.5f)); // nudge the anchor point upward because of the shadow
@@ -52,11 +39,24 @@ Layer::Layer()
     xBuffer = 0;
     yBuffer = 0;
     maxYForSprite = iSize.width - TOP_PADDING;
-    speed = 2;
+    speed = 4;
     
     ScreenManager::getInstance().load(iSize.height,iSize.width);
+    addScreen(0);
+    int rnd = rand() % 4;
+    addScreen(rnd);
+    rnd = rand() % 4;
+    addScreen(rnd);
     
 
+}
+void Layer::addScreen(int screenIndex) {
+    std::list<Line*> newLines = ScreenManager::getInstance().addScreen(screenIndex, xBuffer,yBuffer);
+    for(std::list<Line*>::iterator list_iter = newLines.begin();
+        list_iter != newLines.end(); list_iter++){
+        Line* l = dynamic_cast<Line*>(*list_iter);
+        lineList->push_front(l);
+    }
 }
 CCPoint Layer::ccpForScreen(float x, float y){
     return CCDirector::sharedDirector()->convertToGL(ccp(x,y));
@@ -70,7 +70,6 @@ void Layer::controlCollission() {
     
     
     int boxX = box->getX();
-    int boxY = box->getY();
     int boxWidth = box->getWidth();
     int boxHeight = box->getHeight();
     
@@ -78,10 +77,18 @@ void Layer::controlCollission() {
         for (std::list<Line*>::iterator it = lineList->begin(); it != lineList->end(); it++){
             Line* line = dynamic_cast<Line*>(*it);
             int lineY = line->findY(boxX+boxWidth);
-            if(line->checkCollission(box->getX(),box->getY(),box->getWidth(),box->getHeight())){
+            if(line->checkCollission(box->getX(),box->getY()+yBuffer,box->getWidth(),box->getHeight())){
                 box->setCollided(true);
                 box->setRotation(line->getIncline());
-                box->setY(lineY+boxHeight);
+                //int y = (sinf(line->getIncline())*speed);
+                int y  = lineY+boxHeight;
+                //if(y>maxYForSprite){
+                  // int diff = y-maxYForSprite;
+                    //yBuffer+=diff;
+                //}
+                //else {
+                    box->setY(y);
+                //}
                 return;
             }
         }
@@ -183,6 +190,7 @@ void Layer::ccTouchesEnded(CCSet* touches, CCEvent* event)
 		}*/
         //this->sprite->cocos2d::CCNode::setPosition(CCDirector::sharedDirector()->convertToGL(ccp(touch->locationInView().x, touch->locationInView().y)));
         box->setStatus(0);
+        box->setJumpLength(0);
         
 	}
 }
@@ -226,6 +234,11 @@ void Layer::move() {
             yBuffer+=box->getJumpSpeed();
             box->setY(box->getY()-speed);
         }
+    }
+    screenController+=speed;
+    if(screenController>=width){
+        addScreen(rand()%ScreenManager::getInstance().getScreenCount());
+        screenController=0;
     }
     
 }
