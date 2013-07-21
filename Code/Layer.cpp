@@ -21,7 +21,7 @@ Layer::Layer()
     lineList = new std::list<Line*>();
     
     box=new Sprite(LEFT_PADDING, 72, 32, 32);
-    
+    box->status1 = spriteStatus::FALLING;
     // create sprite
 	CCSize iSize = CCDirector::sharedDirector()->getWinSize();
     width = iSize.height;
@@ -64,6 +64,10 @@ CCPoint Layer::ccpForScreen(float x, float y){
 void Layer::tick(float dt){
     move();
     controlCollission();
+    //if (box->m_line!=NULL) {
+      //  int ySpeed = (speed/cosf(box->m_line->getIncline()))*sinf(box->m_line->getIncline());
+        //box->setY(box->getY()+ySpeed);
+    //}
     setPositions();
 }
 void Layer::controlCollission() {
@@ -73,22 +77,24 @@ void Layer::controlCollission() {
     int boxWidth = box->getWidth();
     int boxHeight = box->getHeight();
     
-    if(box->getStatus()==0){
+    if(box->status1==spriteStatus::FALLING || box->status1 == spriteStatus::RUNNING){
         for (std::list<Line*>::iterator it = lineList->begin(); it != lineList->end(); it++){
             Line* line = dynamic_cast<Line*>(*it);
-            int lineY = line->findY(boxX+boxWidth);
+            //int lineY = line->findY(boxX+boxWidth);
             if(line->checkCollission(box->getX(),box->getY()+yBuffer,box->getWidth(),box->getHeight())){
                 box->setCollided(true);
                 box->setRotation(line->getIncline());
-                //int y = (sinf(line->getIncline())*speed);
-                int y  = lineY+boxHeight;
+                //int y = (cosf(line->getIncline())/speed)*sinf(line);
+                //int y  = lineY+boxHeight;
                 //if(y>maxYForSprite){
                   // int diff = y-maxYForSprite;
                     //yBuffer+=diff;
                 //}
                 //else {
-                    box->setY(y);
+                //box->setY(box->getY()+y);
                 //}
+                box->status1 = spriteStatus::RUNNING;
+                box->m_line = line;
                 return;
             }
         }
@@ -212,7 +218,8 @@ void Layer::drawLines() {
 void Layer::move() {
     xBuffer+=speed;
     box->setX(box->getX()+speed);
-    if (box->getStatus()==0) {
+    //if (box->getStatus()==0) {
+    if(box->status1 == spriteStatus::FALLING){
         if(yBuffer>0){
             yBuffer-=box->getJumpSpeed();
             if(yBuffer<0)yBuffer=0;

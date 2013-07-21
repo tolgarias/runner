@@ -5,14 +5,17 @@
 //  Created by Tolga Saglam's mac on 7/12/13.
 //  Copyright (c) 2013 Bullets in a Burning Box, Inc. All rights reserved.
 //
+#include "Line.h"
 
 #ifndef __SpriteDragger__Sprite__
 #define __SpriteDragger__Sprite__
 
 #include <iostream>
-
-#endif /* defined(__SpriteDragger__Sprite__) */
-
+enum spriteStatus {
+    RUNNING,
+    JUMPING,
+    FALLING
+};
 class Sprite {
 private:
     int x,y,size,width,height,status,maxJump,jumpSpeed,speed,jumpLength;
@@ -47,4 +50,9 @@ public:
     int  getJumpLength();
     
     int getMaxJump();
+    spriteStatus status1;
+    Line* m_line;
+    //bool checkCollission
 };
+#endif /* defined(__SpriteDragger__Sprite__) */
+
