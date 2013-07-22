@@ -151,7 +151,7 @@ void Layer::ccTouchesBegan(CCSet* touches, CCEvent* event)
         //std::cout << "\n";
         //std::cout << touchPoint.y;
         //std::cout << "\n";
-        box->setStatus(1);
+        box->setStatus(spriteStatus::JUMPING);
 	}
    
 }
@@ -189,7 +189,7 @@ void Layer::ccTouchesEnded(CCSet* touches, CCEvent* event)
 				));
 		}*/
         //this->sprite->cocos2d::CCNode::setPosition(CCDirector::sharedDirector()->convertToGL(ccp(touch->locationInView().x, touch->locationInView().y)));
-        box->setStatus(0);
+        box->setStatus(spriteStatus::FALLING);
         box->setJumpLength(0);
         
 	}
@@ -227,7 +227,7 @@ void Layer::move() {
         box->setJumpLength(box->getJumpLength()+box->getJumpSpeed());
         if(box->getJumpLength()>box->getMaxJump()){
             box->setY(box->getY()-speed);
-            box->setStatus(0);
+            box->setStatus(FALLING);
             box->setJumpLength(0);
         }
         else if (box->getY()>maxYForSprite){

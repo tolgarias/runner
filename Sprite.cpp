@@ -14,10 +14,12 @@ Sprite::Sprite() {
     y=0;
     width = 0;
     height = 0;
-    status = 0;
+    //status = 0;
     collided = false;
     maxJump = MAX_JUMP;
     jumpSpeed = JUMP_SPEED;
+    m_line = NULL;
+    status = spriteStatus::FALLING;
 }
 
 Sprite::Sprite(int x,int y,int width,int height) {
@@ -25,10 +27,12 @@ Sprite::Sprite(int x,int y,int width,int height) {
     this->y = y;
     this->width = width;
     this->height = height;
-    status = 0;
+    //status = 0;
     collided = false;
     maxJump = MAX_JUMP;
     jumpSpeed = JUMP_SPEED;
+    m_line = NULL;
+    status = spriteStatus::FALLING;
 }
 
 
@@ -58,11 +62,11 @@ void Sprite::setCollided(bool value){
     collided = value;
 }
 
-int Sprite::getStatus() {
+spriteStatus Sprite::getStatus() {
     return  status;
 }
 
-void Sprite::setStatus(int value){
+void Sprite::setStatus(spriteStatus value){
     status = value;
 }
 

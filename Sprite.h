@@ -10,12 +10,18 @@
 #define __SpriteDragger__Sprite__
 
 #include <iostream>
+#include "Line.h"
 
-#endif /* defined(__SpriteDragger__Sprite__) */
+enum spriteStatus {
+    RUNNING,
+    FALLING,
+    JUMPING
+};
 
 class Sprite {
 private:
-    int x,y,size,width,height,status,maxJump,jumpSpeed,speed,jumpLength;
+    int x,y,size,width,height,maxJump,jumpSpeed,speed,jumpLength;
+    spriteStatus status;
     bool collided;
     float rotation;
     
@@ -32,8 +38,11 @@ public:
     void setHeight(int value);
     int getHeight();
     
-    void setStatus(int value);
-    int getStatus();
+    //void setStatus(int value);
+    //int getStatus();
+    
+    void setStatus(spriteStatus value);
+    spriteStatus getStatus();
 
     void setCollided(bool value);
     bool getCollided();
@@ -47,4 +56,11 @@ public:
     int  getJumpLength();
     
     int getMaxJump();
+    
+    Line* m_line;
+    //spr
 };
+
+
+
+#endif /* defined(__SpriteDragger__Sprite__) */
