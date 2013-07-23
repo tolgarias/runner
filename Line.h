@@ -44,8 +44,8 @@ class Line {
     cocos2d::CCPoint getSecondPoint();
     float getMinY();
     float getMaxY();
-    bool checkCollission(int x,int y,int width,int height);
-
+    bool checkCollission(int x,float y,int width,int height);
+    int getDirection();
 };
 
 #endif /* defined(__SpriteDragger__Line__) */

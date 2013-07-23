@@ -22,7 +22,7 @@ Sprite::Sprite() {
     status = spriteStatus::FALLING;
 }
 
-Sprite::Sprite(int x,int y,int width,int height) {
+Sprite::Sprite(int x,float y,int width,int height) {
     this->x = x;
     this->y = y;
     this->width = width;
@@ -39,7 +39,8 @@ Sprite::Sprite(int x,int y,int width,int height) {
 int Sprite::getX(){
     return x;
 }
-int Sprite::getY(){
+
+float Sprite::getY(){
     return y;
 }
 
@@ -52,7 +53,7 @@ int Sprite::getHeight(){
 void Sprite::setX(int value){
     x = value;
 }
-void Sprite::setY(int value){
+void Sprite::setY(float value){
     y = value;
 }
 bool Sprite::getCollided() {
@@ -89,6 +90,12 @@ int Sprite::getMaxJump() {
     return maxJump;
 }
 
+bool Sprite::checkCollission() {
+    if(m_line!=NULL && (x+width+speed)>=m_line->getSecondPoint().x){
+        return true;
+    }
+    return false;
+}
 
 
 

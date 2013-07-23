@@ -20,19 +20,20 @@ enum spriteStatus {
 
 class Sprite {
 private:
-    int x,y,size,width,height,maxJump,jumpSpeed,speed,jumpLength;
+    int x,size,width,height,maxJump,jumpSpeed,speed,jumpLength;
     spriteStatus status;
     bool collided;
     float rotation;
+    float y;
     
 public:
     Sprite();
     ~Sprite();
-    Sprite(int x,int y,int width,int height);
+    Sprite(int x,float y,int width,int height);
     void setX(int value);
     int getX();
-    void setY(int value);
-    int getY();
+    void setY(float value);
+    float getY();
     void setWidth(int value);
     int getWidth();
     void setHeight(int value);
@@ -58,9 +59,10 @@ public:
     int getMaxJump();
     
     Line* m_line;
-    //spr
+    bool checkCollission();
 };
 
 
 
 #endif /* defined(__SpriteDragger__Sprite__) */
+

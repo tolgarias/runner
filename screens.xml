@@ -4,11 +4,7 @@
 		<points>
 			<point floor="1">
 				<startx>0</startx>
-<<<<<<< HEAD
 				<endx>4</endx>
-=======
-				<endx>8</endx>
->>>>>>> 20e450736b25c204f2aad87a1670937712016dc4
 				<starty>0.5</starty>
 				<endy>0.5</endy>
 			</point>
@@ -18,16 +14,11 @@
 				<starty>0.5</starty>
 				<endy>2.5</endy>
 			</point>
-            
 		</points>
 	</Screen>
     <Screen>
 		<points>
-<<<<<<< HEAD
 			<point floor="1">
-=======
-			<point>
->>>>>>> 20e450736b25c204f2aad87a1670937712016dc4
 				<startx>0</startx>
 				<endx>8</endx>
 				<starty>0.5</starty>
@@ -43,11 +34,7 @@
          </Screen>
         <Screen>
             <points>
-<<<<<<< HEAD
                 <point floor="1">
-=======
-                <point>
->>>>>>> 20e450736b25c204f2aad87a1670937712016dc4
                     <startx>0</startx>
                     <endx>8</endx>
                     <starty>0.5</starty>
@@ -75,11 +62,7 @@
         </Screen>
         <Screen>
             <points>
-<<<<<<< HEAD
                 <point floor="1">
-=======
-                <point>
->>>>>>> 20e450736b25c204f2aad87a1670937712016dc4
                     <startx>0</startx>
                     <endx>8</endx>
                     <starty>0.5</starty>
@@ -107,11 +90,7 @@
         </Screen>
     <Screen>
         <points>
-<<<<<<< HEAD
             <point floor="1">
-=======
-            <point>
->>>>>>> 20e450736b25c204f2aad87a1670937712016dc4
                 <startx>0</startx>
                 <endx>8</endx>
                 <starty>0.5</starty>

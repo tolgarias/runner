@@ -22,7 +22,7 @@ class Layer : public CCLayer
         int xBuffer;
         std::list<Line*> *lineList;
         int speed;
-        int yBuffer;
+        float yBuffer;
         int maxYForSprite;
         int screenController;
         int width,height;
