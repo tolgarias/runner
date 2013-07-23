@@ -66,8 +66,8 @@ CCPoint Layer::ccpForScreen(float x, float y){
     return CCDirector::sharedDirector()->convertToGL(ccp(x,y));
 }
 void Layer::tick(float dt){
-    move();
     controlCollission();
+    move();
     if(!box->getCollided() && box->getStatus()!=spriteStatus::JUMPING){
         box->setStatus(spriteStatus::FALLING);
         box->m_line = NULL;
