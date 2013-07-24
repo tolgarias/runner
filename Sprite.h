@@ -60,6 +60,7 @@ public:
     
     Line* m_line;
     bool checkCollission();
+    void setSpeed(int value);
 };
 
 

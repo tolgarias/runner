@@ -97,6 +97,9 @@ bool Sprite::checkCollission() {
     return false;
 }
 
+void Sprite::setSpeed(int value) {
+    speed = value;
+}
 
 
 

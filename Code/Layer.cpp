@@ -16,9 +16,9 @@ Layer::Layer()
 
 	// create white background
 	this->colorLayer = new CCLayer;
-	//this->colorLayer->initWithColor( ccc4(255, 255, 255, 255) );
 	this->addChild(this->colorLayer, 1);
     lineList = new std::list<Line*>();
+    //lineListToRemove = new std::list<Line*>();
     
     
     //box->status1 = spriteStatus::FALLING;
@@ -26,9 +26,13 @@ Layer::Layer()
 	CCSize iSize = CCDirector::sharedDirector()->getWinSize();
     width = iSize.height;
     height = iSize.width;
-	
-    box=new Sprite(LEFT_PADDING, iSize.height/2, 32, 32);
+    xBuffer = 0;
+    yBuffer = 0;
+    speed = 4;
     
+    
+    box=new Sprite(LEFT_PADDING, iSize.height/2, 32, 32);
+    box->setSpeed(speed);
     
     this->sprite = new CCSprite;
 	this->sprite->initWithFile("wall.png");
@@ -38,12 +42,11 @@ Layer::Layer()
 	
 	this->addChild(this->sprite, 2);
     
-    this->schedule(schedule_selector(Layer::tick), 1.0f/60.0f);
     
-    xBuffer = 0;
-    yBuffer = 0;
+    
+
     maxYForSprite = iSize.width - TOP_PADDING;
-    speed = 4;
+    
     
     ScreenManager::getInstance().load(iSize.height,iSize.width);
     addScreen(0);
@@ -52,6 +55,7 @@ Layer::Layer()
     rnd = rand() % 4;
     addScreen(rnd);
     
+    this->schedule(schedule_selector(Layer::tick), 1.0f/60.0f);
 
 }
 void Layer::addScreen(int screenIndex) {
@@ -66,36 +70,42 @@ CCPoint Layer::ccpForScreen(float x, float y){
     return CCDirector::sharedDirector()->convertToGL(ccp(x,y));
 }
 void Layer::tick(float dt){
-    controlCollission();
     move();
+    controlCollission();
     if(!box->getCollided() && box->getStatus()!=spriteStatus::JUMPING){
         box->setStatus(spriteStatus::FALLING);
         box->m_line = NULL;
     }
     setPositions();
+    std::list<Line*>::iterator i = lineList->begin();
+    while (i != lineList->end())
+    {
+        Line* line = dynamic_cast<Line*>(*i);
+        if(xBuffer>line->getSecondPoint().x){
+            lineList->erase(i++);  // alternatively, i = items.erase(i);
+        }
+        else
+        {
+            ++i;
+        }
+    }
 }
 void Layer::controlCollission() {
-    
-    
-    int boxX = box->getX();
-    int boxWidth = box->getWidth();
-        
     if(box->getStatus()==spriteStatus::FALLING || box->checkCollission()){
+        //std::cout << "size:"<<lineList->size();
         for (std::list<Line*>::iterator it = lineList->begin(); it != lineList->end(); it++){
             Line* line = dynamic_cast<Line*>(*it);
-            //int lineY = line->findY(boxX+boxWidth);
-            if(line->checkCollission(box->getX(),box->getY()+yBuffer,box->getWidth(),box->getHeight())){
+            if(line->checkCollission(box->getX(),box->getY()+yBuffer,box->getWidth(),box->getHeight(),box->getJumpSpeed())){
                 box->setCollided(true);
                 box->setRotation(line->getIncline());
                 box->setStatus(spriteStatus::RUNNING);
                 box->m_line = line;
                 return;
             }
+           
         }
+        box->setCollided(false);
     }
-    box->setCollided(false);
-    
-    
 }
 Layer::~Layer()
 {
@@ -192,8 +202,6 @@ void Layer::ccTouchesEnded(CCSet* touches, CCEvent* event)
 	}
 }
 void Layer::drawLine(CCPoint p1, CCPoint p2){
-   // CCPoint newP1=ccp(p1.y,p1.x);
-    //CCPoint newP2=ccp(p2.y,p2.x);
     ccDrawLine(CCDirector::sharedDirector()->convertToGL(p1),CCDirector::sharedDirector()->convertToGL(p2));
 }
 
@@ -219,32 +227,20 @@ void Layer::move() {
         incline = CC_DEGREES_TO_RADIANS(incline);
         float hipotenus = speed/cosf(incline);
         ySpeed = hipotenus*sinf(incline);
-        //float yPosition = box->getY();
         if(box->m_line->getDirection()==2){
             ySpeed=-1*ySpeed;
         }
     }
-
-    if(box->getStatus() == spriteStatus::FALLING){
-        //if(yBuffer>0){
-          //  yBuffer-=box->getJumpSpeed();
-            //if(yBuffer<0)yBuffer=0;
-        //}
-        //else {
-          //  box->setY(box->getY()-speed);
-        //}
+    else if(box->getStatus() == spriteStatus::FALLING){
         ySpeed = -1*box->getJumpSpeed();
     }
     else if (box->getStatus()==spriteStatus::JUMPING) {
-        //box->setY(box->getY()+box->getJumpSpeed());
         box->setJumpLength(box->getJumpLength()+box->getJumpSpeed());
         ySpeed = box->getJumpSpeed();
         if(box->getJumpLength()>box->getMaxJump()){
-            //box->setY(box->getY()-speed);
             box->setStatus(FALLING);
             box->setJumpLength(0);
             ySpeed=0;
-            //std::cout << "reach the max jump \n";
         }
     }
     
